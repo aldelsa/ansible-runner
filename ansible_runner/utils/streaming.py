@@ -17,6 +17,8 @@ def stream_dir(source_directory, stream):
                     if relpath == ".":
                         relpath = ""
                     for fname in files:
+                        if os.path.islink(fname) and not os.path.exists(fname):
+                            continue
                         archive.write(os.path.join(dirpath, fname), arcname=os.path.join(relpath, fname))
             archive.close()
 
